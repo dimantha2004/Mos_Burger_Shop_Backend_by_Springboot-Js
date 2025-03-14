@@ -1,27 +1,97 @@
-function displayReport() {
-    const orders = JSON.parse(localStorage.getItem('orders')) || [];
+document.addEventListener("DOMContentLoaded", function () {
+document.getElementById("report-btn")?.addEventListener("click", async () => {
+        try {
+           
+            const orders = await fetchData("/api/Order/getAll", 'GET');
+            console.log("Fetched orders:", orders);
 
-    if (orders.length === 0) {
-        alert("No orders available to display.");
-        return;
-    }
+            
+            const sortedOrders = orders.sort((a, b) => {
+                
+                const dateA = a.orderDate ? new Date(a.orderDate).getTime() : a.id;
+                const dateB = b.orderDate ? new Date(b.orderDate).getTime() : b.id;
+                return dateB - dateA; 
+            });
 
-    const reportWindow = window.open('', '_blank');
-    reportWindow.document.write('<h1>Orders Report</h1>');
-    orders.forEach(order => {
-        reportWindow.document.write(`
-            <div>
-                <h3>Order ID: ${order.id}</h3>
-                <p>Date: ${order.timestamp}</p>
-                <ul>
-                    ${order.items.map(item => `<li>${item.name} - $${item.price.toFixed(2)}</li>`).join('')}
-                </ul>
-                <p><strong>Total: ${order.total.toFixed(2)}</strong></p>
-                <hr>
-            </div>
-        `);
+            displayOrdersReportInNewTab(sortedOrders);
+        } catch (error) {
+            console.error("Error fetching orders:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Load Orders',
+                text: 'Unable to fetch the orders report. Please try again later.',
+            });
+        }
     });
-    reportWindow.document.close();
-}
 
-document.getElementById('report-btn').addEventListener('click', displayReport);
+    function displayOrdersReportInNewTab(orders) {
+        
+        const htmlContent = `
+            <html>
+                <head>
+                    <title>Orders Report</title>
+                    <style>
+                        body {
+                            font-family: Arial, sans-serif;
+                            margin: 20px;
+                        }
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            margin-top: 20px;
+                        }
+                        th, td {
+                            border: 1px solid #ddd;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #f2f2f2;
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f9f9f9;
+                        }
+                        tr:hover {
+                            background-color: #f1f1f1;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Orders Report</h1>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Order Date</th>
+                                <th>Phone Number</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${orders
+                                .map(
+                                    (order) => `
+                                <tr>
+                                    <td>${order.id}</td>
+                                    <td>${order.orderDate || "NULL"}</td>
+                                    <td>${order.phonenumber || "NULL"}</td>
+                                    <td>${order.totalPrice || "NULL"}</td>
+                                </tr>
+                            `
+                                )
+                                .join("")}
+                        </tbody>
+                    </table>
+                </body>
+            </html>
+        `;
+
+        const blob = new Blob([htmlContent], { type: "text/html" });
+
+        const url = URL.createObjectURL(blob);
+
+        window.open(url, "_blank");
+
+        URL.revokeObjectURL(url);
+    }
+});

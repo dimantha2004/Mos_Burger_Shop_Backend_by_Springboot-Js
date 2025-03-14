@@ -15,44 +15,43 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     const username = document.getElementById('USERNAME').value;
     const password = document.getElementById('PASSWORD').value;
 
+    const formData = new URLSearchParams();
+    formData.append('username', username);
+    formData.append('password', password);
+
     fetch('http://localhost:8080/api/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
+        body: formData
     })
     .then(response => {
         if (response.ok) {
-            return response.text();
+            return response.text(); 
         } else {
-            throw new Error('Login failed');
+            throw new Error('Login failed: Invalid credentials or server error');
         }
     })
     .then(message => {
-        alert(message);
-
+        
         Swal.fire({
             icon: 'success',
             title: 'Login Successful',
             text: message
+        }).then(() => {
+            
+            document.querySelector('.login-container').style.display = 'none';
+            document.getElementById('app-content').style.display = 'block';
         });
-
-        document.querySelector('.login-container').style.display = 'none';
-        document.getElementById('app-content').style.display = 'block';
     })
     .catch(error => {
-
-        alert('Incorrect username or password. Please try again.');
-        console.error(error);
-    });
-});
-
+       
         Swal.fire({
             icon: 'error',
             title: 'Login Failed',
-            text: 'Incorrect username or password. Please try again.'
+            text: error.message || 'Incorrect username or password. Please try again.'
         });
-        console.error(error);
-
-
+        console.error('Login Error:', error);
+    });
+});

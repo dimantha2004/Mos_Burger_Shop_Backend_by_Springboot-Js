@@ -1,5 +1,6 @@
 document.getElementById('signup-form').addEventListener('submit', function (e) {
     e.preventDefault();
+
     const username = document.getElementById('new-username').value;
     const email = document.getElementById('new-email').value;
     const password = document.getElementById('new-password').value;
@@ -19,19 +20,30 @@ document.getElementById('signup-form').addEventListener('submit', function (e) {
     })
     .then(response => {
         if (response.ok) {
-            return response.text();
+            return response.text(); 
         } else {
-            throw new Error('Signup failed');
+            throw new Error('Signup failed: ' + response.statusText);
         }
     })
     .then(message => {
-        alert(message);
         
-        document.querySelector('.signup-container').style.display = 'none';
-        document.querySelector('.login-container').style.display = 'block';
+        Swal.fire({
+            icon: 'success',
+            title: 'Signup Successful',
+            text: message
+        }).then(() => {
+            
+            document.querySelector('.signup-container').style.display = 'none';
+            document.querySelector('.login-container').style.display = 'block';
+        });
     })
     .catch(error => {
-        alert('Signup failed. Please try again.');
-        console.error(error);
+        
+        Swal.fire({
+            icon: 'error',
+            title: 'Signup Failed',
+            text: error.message || 'Signup failed. Please try again.'
+        });
+        console.error('Signup Error:', error);
     });
 });
