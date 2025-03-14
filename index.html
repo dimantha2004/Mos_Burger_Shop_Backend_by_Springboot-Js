@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOS Burger</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="main-content">
+        <video src="./v1.mp4" autoplay loop muted playsinline></video>
+        
+        <div class="form-container login-container">
+            <h1>MOS BURGER</h1>
+            <h2>LOGIN</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="USERNAME" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="PASSWORD" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">LOGIN</button>
+                <p class="toggle-text">Don't have an account? <a href="#" id="show-signup">Sign Up</a></p>
+            </form>
+        </div>
+
+        
+        <div class="form-container signup-container" style="display: none;">
+            <h1>MOS BURGER</h1>
+            <h2>SIGN UP</h2>
+            <form id="signup-form">
+                <div class="input-group">
+                    <input type="text" id="new-username" placeholder="Username" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="new-email" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="new-password" placeholder="Password" required>
+                </div>
+                <button type="submit" class="btn">SIGN UP</button>
+                <p class="toggle-text">Already have an account? <a href="#" id="show-login">Login</a></p>
+            </form>
+        </div>
+    </div>
+
+        
+        <div id="app-content" style="display: none;">
+            <header>
+                <h1>MOS Burgers</h1>
+                <nav>
+                    <a href="#burgers">Burgers</a>
+                    <a href="#submarines">Submarines</a>
+                    <a href="#fries">Fries</a>
+                    <a href="#pasta">Pasta</a>
+                    <a href="#chicken">Chicken</a>
+                    <a href="#beverages">Beverages</a>
+                    <a href="#cart">Cart</a>
+                    <button id="product-management-btn">Product Management</button>
+                    <button id="customer-management-btn">Customer Management</button>
+  
+                </nav>
+            </header>
+            <main>
+               
+                <section class="explore">
+                    <h3>Explore Our Menu</h3>
+                </section>
+                <div class="category" id="burgers">
+                    <h4>Burgers</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="burgers">Add New Burger</button>
+                </div>
+                <div class="category" id="submarines">
+                    <h4>Submarines</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="submarines">Add New Submarine</button>
+                </div>
+                <div class="category" id="fries">
+                    <h4>Fries</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="fries">Add New Fries</button>
+                </div>
+                <div class="category" id="pasta">
+                    <h4>Pasta</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="pasta">Add New Pasta</button>
+                </div>
+                <div class="category" id="chicken">
+                    <h4>Chicken</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="chicken">Add New Chicken</button>
+                </div>
+                <div class="category" id="beverages">
+                    <h4>Beverages</h4>
+                    <div class="products"></div>
+                    <button class="add-new-product-btn" data-category="beverages">Add New Beverage</button>
+                </div>
+                <section class="cart">
+                    <h3 id="cart">Your Cart</h3>
+                    <ul id="cart-items"></ul>
+                    <p id="total">Total: Rs: 0</p>
+                    <button id="clear-cart-btn" class="btn btn-warning">Clear Cart</button>
+                    <button id="checkout-btn" class="btn btn-success">Checkout</button>
+                    <button id="report-btn" class="btn btn-info">View Orders Report</button>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div id="product-management" style="display: none;">
+        <h1>Product Management</h1>
+        <button id="back-to-app-from-product-btn" class="btn btn-secondary">Back to App</button>
+        <form id="product-id-form">
+            <div class="input-group">
+                <input type="text" id="product-id" placeholder="Enter Product ID" required>
+                <button type="submit" class="btn">Search Product</button>
+            </div>
+        </form>
+    
+        <form id="update-product-form" style="display: none;">
+            <div class="input-group">
+                <input type="text" id="update-photo-link" placeholder="Photo Link" required></div>
+            <div class="input-group">
+                <input type="text" id="update-product-name" placeholder="Product Name" required></div>
+            <div class="input-group">
+                <input type="number" id="update-product-price" placeholder="Price" required></div>
+            <div class="input-group">
+                <input type="number" id="update-product-quantity" placeholder="Quantity" required></div>
+            <div class="input-group">
+                <input type="text" id="update-product-category" placeholder="Category" readonly> </div>
+            <button type="submit" class="btn">Update Product</button>
+            <button type="button" id="delete-product-btn" class="btn btn-danger">Delete Product</button>
+        </form>
+    </div>
+
+    <div id="customer-management" style="display: none;">
+        <h1>Customer Management</h1>
+        <button id="back-to-app-from-customer-btn" class="btn btn-secondary">Back to App</button>
+        <form id="customer-phone-form">
+            <div class="input-group">
+                <input type="text" id="customer-phone" placeholder="Enter Phone Number" required>
+                <button type="submit" class="btn">Search Customer</button>
+            </div>
+        </form>
+    
+        <form id="update-customer-form" style="display: none;">
+            <div class="input-group">
+                <input type="text" id="update-customer-name" placeholder="Name" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="update-customer-phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="update-customer-address" placeholder="Address" required>
+            </div>
+            <button type="submit" class="btn">Update Customer</button>
+            <button type="button" id="delete-customer-btn" class="btn btn-danger">Delete Customer</button>
+        </form>
+    
+        <form id="add-customer-form">
+            <div class="input-group">
+                <input type="text" id="add-customer-name" placeholder="Name" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="add-customer-phone" placeholder="Phone Number" required>
+            </div>
+            <div class="input-group">
+                <input type="text" id="add-customer-address" placeholder="Address" required>
+            </div>
+            <button type="submit" class="btn">Add Customer</button>
+        </form>
+    </div>
+
+    <script src="login.js"></script>
+    <script src="signin.js"></script>
+    <script src="app.js"></script>
+    <script src="order.js"></script>
+    <script src="report.js"></script>
+    <script src="productmanagement.js"></script>
+    <script src="resipt.js"></script>
+    <script src="customermanagement.js"></script>
+</body>
+</html>

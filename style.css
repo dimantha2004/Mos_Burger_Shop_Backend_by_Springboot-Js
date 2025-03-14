@@ -1,0 +1,1408 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.login-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.login-container h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+.login-container h2 {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-weight: 400;
+    animation: fadeInUp 0.7s ease-out;
+}
+
+.login-container .input-group {
+    margin-bottom: 20px;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.login-container input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.login-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.login-container .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-container .btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.login-container .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.login-container .toggle-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 15px;
+}
+
+.login-container .toggle-text a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.login-container .toggle-text a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#app-content {
+    display: none;
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+header {
+    background: linear-gradient(to right, #a90b67, #e63946);
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+header h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin: 0;
+}
+
+header nav a {
+    color: #fff;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+header nav a:hover {
+    color: #ffcc00;
+    transform: scale(1.1);
+    text-shadow: 0px 0px 10px rgba(255, 204, 0, 0.8);
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+}
+
+.product {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: calc(25% - 20px);
+    min-width: 200px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.product img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+
+.product h4 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 10px;
+}
+
+.product .available-quantity {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 15px;
+}
+
+.product button {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.order-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+.order-btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.delete-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.delete-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+.product button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.category {
+    background: rgba(204, 194, 194, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.category:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.category h4 {
+    font-size: 1.8rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+}
+
+.category h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    border-radius: 2px;
+}
+
+.add-new-product-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-new-product-btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.add-new-product-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#add-product-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+#add-product-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#add-product-form input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#add-product-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#add-product-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#add-product-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit-product-btn {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+#submit-product-btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#cancel-form-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+#cancel-form-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#add-product-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cart {
+    text-align: center;
+    margin: 30px 0;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.cart h3 {
+    font-size: 2rem;
+    color: #e63946;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    margin-bottom: 15px;
+}
+
+#cart-items {
+    list-style: none;
+    padding: 0;
+}
+
+#cart-items li {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+#total {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+#clear-cart-btn, #save-order-btn, #checkout-btn, #report-btn {
+    margin: 5px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+#clear-cart-btn {
+    background-color: #ff4e50;
+    color: #fff;
+}
+
+#save-order-btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+#checkout-btn {
+    background-color: #28a745;
+    color: #fff;
+}
+
+#report-btn {
+    background-color: #17a2b8;
+    color: #fff;
+}
+
+#clear-cart-btn:hover, #save-order-btn:hover, #checkout-btn:hover, #report-btn:hover {
+    transform: scale(1.05);
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    animation: fadeInUp 0.3s ease-out;
+}
+
+.modal input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+}
+
+.modal button {
+    padding: 10px 20px;
+    margin: 10px 0;
+    transition: all 0.3s ease;
+}
+
+.modal button:hover {
+    background: linear-gradient(to right, #e63946, #ff4e50);
+    color: #fff;
+    transform: scale(1.05);
+}
+
+#add-new-product-btn {
+    text-align: center;
+    color: #111ac4;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+#add-new-product-btn:hover {
+    background: linear-gradient(to right, #0056b3, #0099cc);
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+input:focus, textarea:focus, select:focus {
+    border-color: #e63946;
+    outline: none;
+    box-shadow: 0px 0px 8px rgba(230, 57, 70, 0.4);
+}
+
+button {
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.product {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+}
+
+.product:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.product img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: transform 0.3s ease;
+}
+
+.product:hover img {
+    transform: scale(1.05);
+}
+
+.product h4 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 10px;
+    font-weight: 600;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.product p {
+    font-size: 1rem;
+    color: #fff;
+    margin-bottom: 10px;
+    opacity: 0.9;
+}
+
+.product .available-quantity {
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-bottom: 15px;
+}
+
+.product .order-btn, .product .delete-btn {
+    padding: 8px 15px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.product .order-btn {
+    background: linear-gradient(to right, #6c63ff, #a90b67);
+    color: #fff;
+}
+
+.product .order-btn:hover {
+    background: linear-gradient(to right, #5a52e0, #8a0755);
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product .delete-btn {
+    background: #e63946;
+    color: #fff;
+}
+
+.product .delete-btn:hover {
+    background: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .product {
+        width: calc(50% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .product {
+        width: 100%;
+    }
+}
+
+.signup-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 400px;
+    max-width: 90%;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-container::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), transparent);
+    transform: rotate(45deg);
+    pointer-events: none;
+    z-index: -1;
+}
+
+.signup-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.signup-container h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 15px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+.signup-container h2 {
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 25px;
+    font-weight: 400;
+    animation: fadeInUp 0.7s ease-out;
+}
+
+.signup-container .input-group {
+    margin-bottom: 20px;
+}
+
+.signup-container input {
+    width: 100%;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.signup-container input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.signup-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.signup-container .btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.signup-container .btn:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.signup-container .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+.signup-container .toggle-text {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin-top: 15px;
+}
+
+.signup-container .toggle-text a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.signup-container .toggle-text a:hover {
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes fadeInDown {
+    from {
+        transform: translateY(-20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.remove-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.remove-btn:hover {
+    background-color: #cc0000;
+}
+
+#update-product-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    display: none; 
+}
+
+#update-product-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#update-product-form .input-group {
+    margin-bottom: 15px;
+}
+
+#update-product-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#update-product-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#update-product-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#update-product-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#update-product-form button[type="submit"] {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+#update-product-form button[type="submit"]:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#delete-product-btn {
+    background: #e63946;
+    color: #fff;
+}
+
+#delete-product-btn:hover {
+    background: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#update-product-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#search-product-btn {
+    background: linear-gradient(to right, #4CAF50, #45a049); 
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+#search-product-btn:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50); 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#search-product-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#product-management {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#product-management h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+#product-management .btn-secondary {
+    background: linear-gradient(to right, #6c757d, #495057);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+#product-management .btn-secondary:hover {
+    background: linear-gradient(to right, #5a6268, #343a40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#product-management .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#product-id-form {
+    margin-top: 20px;
+}
+
+#product-id-form .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#product-id-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#product-id-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#product-id-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#product-id-form .btn {
+    background: linear-gradient(to right, #4CAF50, #45a049); 
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#product-id-form .btn:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50); 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#product-id-form .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+#product-management-btn {
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#product-management-btn:hover {
+    color: #d5bd1f;
+    text-decoration: none;
+}
+
+#product-management-btn:active {
+    color: #dfcb16;
+}
+#customer-management {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+#customer-management h1 {
+    font-size: 2.5rem;
+    background: linear-gradient(to right, #e63946, #a90b67);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    animation: fadeInDown 0.7s ease-out;
+}
+
+#customer-management .btn-secondary {
+    background: linear-gradient(to right, #6c757d, #495057);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+#customer-management .btn-secondary:hover {
+    background: linear-gradient(to right, #5a6268, #343a40);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#customer-management .btn-secondary:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#customer-phone-form{
+    margin-top: 20px;
+}
+
+#customer-phone-form .input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#customer-phone-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#customer-phone-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#customer-phone-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#customer-phone-form .btn {
+    background: linear-gradient(to right, #4CAF50, #45a049); 
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#customer-phone-form .btn:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50); 
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#customer-phone-form .btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#update-customer-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+    display: none; 
+}
+
+#update-customer-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#update-customer-form .input-group {
+    margin-bottom: 15px;
+}
+
+#update-customer-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#update-customer-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#update-customer-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#update-customer-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#update-customer-form button[type="submit"] {
+    background: linear-gradient(to right, #e63946, #a90b67);
+    color: #fff;
+}
+
+#update-customer-form button[type="submit"]:hover {
+    background: linear-gradient(to right, #d62828, #8a0652);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#delete-customer-btn {
+    background: #e63946;
+    color: #fff;
+}
+
+#delete-customer-btn:hover {
+    background: #d62828;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#update-customer-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#add-customer-form {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+#add-customer-form h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+#add-customer-form .input-group {
+    margin-bottom: 15px;
+}
+
+#add-customer-form input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: #fff;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#add-customer-form input:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+#add-customer-form input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+#add-customer-form button {
+    padding: 12px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#add-customer-form button[type="submit"] {
+    background: linear-gradient(to right, #4CAF50, #45a049);
+    color: #fff;
+}
+
+#add-customer-form button[type="submit"]:hover {
+    background: linear-gradient(to right, #45a049, #4CAF50);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#add-customer-form button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+#customer-management-btn {
+    font-weight: bold;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 1rem;
+    color: #ffffff;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+#customer-management-btn:hover {
+    color: #d5bd1f;
+    text-decoration: none;
+}
+
+#customer-management-btn:active {
+    color: #dfcb16;
+}
